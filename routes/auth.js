@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/authMiddleware");
 
 //För inloggning - restaurangarbetare/admin
 //hämta modell från User.js
@@ -66,6 +67,18 @@ router.post("/register", async (req, res) => {
     }catch (err){
         console.error(err);
         return res.status(500).json({ error: "Serverfel! Kunde inte skapa administratör" });
+    }
+})
+
+router.delete("/admins/:id", auth, async (req, res) => {
+    try{
+        const deleted = await Admin.findByIdAndDelete(req.params.id);
+        if(!deleted){
+            return res.status(404).json({ error: "Admin hittades inte" });
+        }
+        res.json({ message: "Admin borttagen" });
+    }catch(err){
+        res.status(500).json({ error: "Kunde inte ta bort admin" });
     }
 })
 
