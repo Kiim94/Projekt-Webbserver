@@ -82,4 +82,9 @@ router.delete("/admins/:id", auth, async (req, res) => {
     }
 })
 
+router.get("/admins", auth, async (req, res) => {
+    const admins = await Admin.find().select("-password");
+    res.json(admins);
+})
+
 module.exports = router;
