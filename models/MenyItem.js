@@ -12,6 +12,7 @@ const menySchema = new mongoose.Schema({
     },
     category: {
         type: String,
+        //dessa alternativ går att välja. Om inget väljs, default till other
         enum: ["hot_drinks", "cold_drinks", "sandwich", "other"],
         default: "other",
     },

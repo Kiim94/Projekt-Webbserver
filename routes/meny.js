@@ -76,13 +76,11 @@ router.put("/:id", auth, async (req, res) => {
     }
 })
 
+//radera maträtt
 router.delete("/:id",auth, async (req, res) => {
     try{
-        console.log("AUTH OK");
-        console.log("ID:", req.params.id);
         const menyId = req.params.id;
         const menyitem = await MenyItem.findByIdAndDelete(menyId);
-        console.log("RESULT:", menyitem);
         if(!menyitem){
             return res.status(404).json({ error: "Rätten hittades inte i databasen"});
         }
