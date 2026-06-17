@@ -36,6 +36,18 @@ app.use("/api/auth", authRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/meny", menyRoutes);
 
+//lagt till dessa, för "döda" routes
+app.get("/", (req, res) => {
+    res.send("Backend server är igång");
+});
+
+app.get("/api", (req, res) => {
+    res.json({
+        status:"ok",
+        message: "API fungerar"
+    })
+})
+
 //anslut MongoDB
 async function startServer(){
     try{
